@@ -3,6 +3,7 @@ import CommentApi from 'apis/comment/CommentAPI'
 import CommentUpdateBtn from 'components/Comment/CommentList/list/UpdateBtn'
 import { commentKey } from 'consts/queryKey'
 import useEditable from 'hooks/editable'
+import TimeForToday from 'hooks/usedaysTimer'
 import { useState } from 'react'
 import styled from 'styled-components'
 import {  commentData } from '../..'
@@ -11,38 +12,59 @@ function CommentCard( {data} : commentData) {
 
   const [UpdatehiddenBtn,setUpdatehiddenBtn] = useState<boolean>(false)
   const EditableBtn =  useEditable(data.userId)
+<<<<<<< HEAD
   
   console.log(data);
+=======
+  const {boardNum,commentNum} = data
+>>>>>>> c583def3023df4d9b457492810c32def89c99338
   
   const onClickhiddenBtn = () => {
     setUpdatehiddenBtn(true)
   }
   
   const queryClient = useQueryClient();
-  const CommentDeletemutation = useMutation(() => CommentApi.deleteCommentApi(), {
+  const CommentDeletemutation = useMutation(() => CommentApi.deleteCommentApi(boardNum,commentNum), {
     onSuccess: (res) => {
-      if (!window.confirm('삭제 하시겠습니까')) return;
       queryClient.invalidateQueries([commentKey.GET_COMMENT_LIST])
     },
   })
+
+  const handleCommentDelete = () => {
+      CommentDeletemutation.mutate();
+  }
   
   return (
     <Wrap>
       <CommentListHeader>
+<<<<<<< HEAD
         <UserEmail>
           <p> {data.userEmail} </p>
         </UserEmail>
+=======
+        <UserInpo>
+          <div> <p>{data.userEmail}</p><p>{TimeForToday(data.commentTime)}</p> </div>
+          {/* <p><span>작성 날자 : </span></p> */}
+        </UserInpo>
+>>>>>>> c583def3023df4d9b457492810c32def89c99338
         {!UpdatehiddenBtn && EditableBtn && (
           <ChangeBtn>
             <span onClick={onClickhiddenBtn}>수정</span>
-            <span onClick={() => CommentDeletemutation}>삭제</span>
+            <span onClick={handleCommentDelete}>삭제</span>
           </ChangeBtn>
         )}
       </CommentListHeader>
       <Commentcontent>
         {!UpdatehiddenBtn && data.comment}
       </Commentcontent>
-      {UpdatehiddenBtn && <CommentUpdateBtn comment={data.comment} setUpdatehiddenBtn={setUpdatehiddenBtn}/>}
+      {UpdatehiddenBtn && 
+      <CommentUpdateBtn 
+          commentdata={data.comment} 
+          commentNum={data.commentNum}
+          boardNum={data.boardNum}
+          userId={data.userId}
+          setUpdatehiddenBtn={setUpdatehiddenBtn}/>
+      }
 
     </Wrap>
   )
@@ -57,16 +79,23 @@ const Wrap = styled.div`
 `
 
 const CommentListHeader = styled.div`
-  margin-bottom: 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 `
-const UserEmail = styled.div`
+const UserInpo = styled.div`
   & p {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
     color: #212529;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #212529;
+  }
+  & p+p{
+    margin-top: 0.5rem;
+    color: #868E96;
+    font-size: 0.875rem;
   }
 `
 const ChangeBtn = styled.div`

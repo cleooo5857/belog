@@ -19,18 +19,17 @@ function Header() {
    const [isOpenoModal, setIsTodoModal] = useRecoilState(OpenCloseModal);
    const [isLoginComponent, setisLoginComponent] = useRecoilState(StorgeSession);
    
-
    // 스크롤 내릴시 fixed 속성 적용
    const handleScroll  = () =>  {
-
+      
       if (ScrollY > 100) {
          setScrollY(window.pageYOffset);
          setScrollActive(true);
-         } else {
+      } else {
          setScrollY(window.pageYOffset);
          setScrollActive(false);
       }
-}
+   }
 
    useEffect(() => {
       function scrollListener() {
@@ -66,8 +65,7 @@ function Header() {
                }
                </S.RightItem>
             </S.container>
-      <ToastContainer position="top-right" autoClose={2000}/>
-
+         <ToastContainer position="top-right" limit={1} autoClose={1500}/>
          </S.HeaderContainer>
          <Outlet/>
       </S.Wrapper>

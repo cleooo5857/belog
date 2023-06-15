@@ -17,8 +17,13 @@ interface loginData {
 interface JoinData {
     data : string
 }
+const url = process.env.REACT_APP_BASE_URL
+const path = `${url}v1/user/`
 
+<<<<<<< HEAD
 const path = 'http://15.164.220.47:8080/v1/user/'
+=======
+>>>>>>> c583def3023df4d9b457492810c32def89c99338
 /*
     AuthApi.login - 로그인 API (이메일,비밀번호)
     AuthApi.signup - 회원가입 API (userData - 타입스크립트참고)

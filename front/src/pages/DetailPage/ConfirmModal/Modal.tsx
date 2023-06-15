@@ -22,14 +22,14 @@ function DetailConfirmModal ({boardNum,setModalOpen,img} : ModalType) {
   const navigete = useNavigate()
   const queryClient = useQueryClient();
   const s3 = new AWS.S3({
-    region: process.env.REACT_APP_S3_REGION,
+    region: 'ap-northeast-2',
     accessKeyId: process.env.REACT_APP_S3_ACCESS_KET_ID,
     secretAccessKey: process.env.REACT_APP_S3_SECRET_ACCESSKEY
   });
   /*
     게시글 삭제 버튼 클릭 후 게시글의 작성된 이미지  imgurl 변수 저장
     이미지가 있다면 aws s3 버킷 이름과 , imgurl 의 저장된 이미지를 aws 
-    s3의 파일을 삭제 alert 노출 , queryClient.invalidateQueries([queryKey.GET_MAINPOSTS_LIST])
+    s3의 파일을 삭제  , queryClient.invalidateQueries([queryKey.GET_MAINPOSTS_LIST])
     적용시켜줌으로써 최신 List 메인페이지 노출
     
   */
@@ -38,7 +38,11 @@ function DetailConfirmModal ({boardNum,setModalOpen,img} : ModalType) {
       const imgurl = img?.map((item) => item.split("/").pop())
       if(imgurl?.length !== 0){
         const params : any = {
+<<<<<<< HEAD
           Bucket: 'blog-img-file', 
+=======
+          Bucket: 'web-blog-site', 
+>>>>>>> c583def3023df4d9b457492810c32def89c99338
           Delete: {
             // 키값에 배열의 imgurl 넣어줌
             Objects: imgurl?.map((item) => ({ Key: `boardImage/${item}` })),

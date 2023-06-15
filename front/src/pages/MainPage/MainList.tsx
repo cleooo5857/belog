@@ -15,6 +15,7 @@ export interface BoardData {
    boardTitle: string;
    hashTag?: string;
    boardImages?: string[];
+   userEmail:string;
 }
 
 interface Board {
@@ -51,9 +52,10 @@ function MainPageList() {
       // 서버 요청시 취소됐을때
       if (!inView || isFetching) return;
       fetchNextPage();
+      
     }, [inView]);
 
-
+   
    return(
       <S.Wrapper>
          <S.Innerwrap>
@@ -94,7 +96,6 @@ const Wrapper = styled.div`
    ${media.tablet} {
       width: calc(100% - 2rem);
    }
-  
 `;
 
 const Innerwrap = styled.div`

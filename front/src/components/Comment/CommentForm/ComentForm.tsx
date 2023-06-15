@@ -14,10 +14,17 @@ function ComentForm({boardNum} : {boardNum : number}) {
    const [comment , setContent, reset] = useInput('');
    const UserSessiondata = SessionRepository.getSession();
    const userId = UserSessiondata.userid
+<<<<<<< HEAD
    // 서버에 보낼 댓글 데이터
    const commentobj = {
       comment,
       boardNum,
+=======
+   
+   // 서버에 보낼 댓글 데이터
+   const commentobj = {
+      comment,
+>>>>>>> c583def3023df4d9b457492810c32def89c99338
       userId,
    }
    
@@ -33,6 +40,7 @@ function ComentForm({boardNum} : {boardNum : number}) {
 
    // 댓글 등록시 값을 입력하지 않았다면 등록되지않음, 댓글 등록시 CommentAddmutation.mutate() 실행
    const handleCommentMutation = () => {
+      if(!userId) return toast.error('로그인 후 이용 가능합니다.')
       if(comment.length === 0) return toast.error('댓글 내용을 입력해주세요.')
       CommentAddmutation.mutate();
    }

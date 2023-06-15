@@ -6,10 +6,11 @@ import CommentList from "components/Comment";
 import useEditable from "hooks/editable";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { SessionRepository } from "repository/SessionRepository";
 import styled from "styled-components"
 import EditBtn from "./EditBtn";
 import RemoveBtn from "./RemoveBtn";
+import TimeForToday from "hooks/usedaysTimer";
+
 
 export interface DetailpageData {
    boardContents: string;
@@ -30,7 +31,7 @@ export interface Detaildata {
 function DetailPage() {
 
    /*
-      {boardNum} - 게시글 상세 번호
+      {boardNum,userEmail,writeTime} - 게시글 상세 번호,이메일,작성날자
       data - 상세 페이지 api state
       tagList - 서버에 저장된 태그 리스트 저장 state
       userId - 게시글 작성 유저 아이디
@@ -38,7 +39,7 @@ function DetailPage() {
 
    */
    const location = useLocation();
-   const {boardNum} = location.state.data
+   const {boardNum,userEmail,writeTime} = location.state.data
    const [data , setData] = useState<DetailpageData>()
    const [tagList , setTagList] = useState<string[]>([])
    const userId = data?.userId as number;
@@ -60,11 +61,10 @@ function DetailPage() {
             }
          }catch(err){
             alert('상세 페이지를 불러오지 못했습니다.')
-            
          }
       }
       fetchData()
-   },[])
+   },[setData])
 
 
    return (
@@ -72,6 +72,12 @@ function DetailPage() {
          <S.Title>
             {data?.boardTitle}
          </S.Title>
+         <UserInpo>
+            <div><span>작성자 : </span> <span>{userEmail}</span></div>
+            <Days>
+               <div><span>작성 날자 : </span><span>{TimeForToday(writeTime)}</span></div>
+            </Days>
+         </UserInpo>
          <S.TagWrap>
             {/* 서버에서 빈 배열 보내줘서 조건처리 0보다 큰 태그리스트만 랜더링 */}
             {
@@ -94,7 +100,6 @@ function DetailPage() {
          {data && (
             <div dangerouslySetInnerHTML={{ __html: data.boardContents }} />
          )}
-            <CommentIndexPage boardNum={boardNum}/>
             <CommentList boardNum={boardNum}/>
          </S.Content>
       </S.Wrapper>
@@ -110,6 +115,25 @@ const Wrapper = styled.div`
    flex-direction: column;
    margin: 0 auto;
    padding: 1.5rem 1.5rem 5rem
+`
+
+const UserInpo = styled.div`
+   margin-top: 5rem;
+   padding-bottom: 3rem;
+   border-bottom: 3px solid #f2f2f2;
+
+   & span{
+      color: #333;
+      font-size: 18px;
+      font-weight: 700;
+      padding-right: 15px;
+   }
+`
+
+const Days = styled.div`
+   font-size: 18px;
+   color: #717171;
+   margin-top : 2rem
 `
 
 const Title = styled.div`
