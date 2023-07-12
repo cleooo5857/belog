@@ -8,12 +8,8 @@ type CommentFetchProps = {
    boardNum? : number
 }
 
-<<<<<<< HEAD
-const path = 'http://15.164.220.47:8080/v1/board/'
-=======
 const url = process.env.REACT_APP_BASE_URL
 const path = `${url}v1/board/`
->>>>>>> c583def3023df4d9b457492810c32def89c99338
 
 //댓글 리스트, 생성 , 수정 , 삭제 API
 const CommentApi =  {

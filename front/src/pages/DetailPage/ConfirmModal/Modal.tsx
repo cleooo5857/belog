@@ -38,11 +38,7 @@ function DetailConfirmModal ({boardNum,setModalOpen,img} : ModalType) {
       const imgurl = img?.map((item) => item.split("/").pop())
       if(imgurl?.length !== 0){
         const params : any = {
-<<<<<<< HEAD
-          Bucket: 'blog-img-file', 
-=======
           Bucket: 'web-blog-site', 
->>>>>>> c583def3023df4d9b457492810c32def89c99338
           Delete: {
             // 키값에 배열의 imgurl 넣어줌
             Objects: imgurl?.map((item) => ({ Key: `boardImage/${item}` })),

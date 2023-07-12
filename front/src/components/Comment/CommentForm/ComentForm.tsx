@@ -14,17 +14,10 @@ function ComentForm({boardNum} : {boardNum : number}) {
    const [comment , setContent, reset] = useInput('');
    const UserSessiondata = SessionRepository.getSession();
    const userId = UserSessiondata.userid
-<<<<<<< HEAD
-   // 서버에 보낼 댓글 데이터
-   const commentobj = {
-      comment,
-      boardNum,
-=======
    
    // 서버에 보낼 댓글 데이터
    const commentobj = {
       comment,
->>>>>>> c583def3023df4d9b457492810c32def89c99338
       userId,
    }
    

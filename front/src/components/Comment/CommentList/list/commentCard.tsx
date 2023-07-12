@@ -12,12 +12,7 @@ function CommentCard( {data} : commentData) {
 
   const [UpdatehiddenBtn,setUpdatehiddenBtn] = useState<boolean>(false)
   const EditableBtn =  useEditable(data.userId)
-<<<<<<< HEAD
-  
-  console.log(data);
-=======
   const {boardNum,commentNum} = data
->>>>>>> c583def3023df4d9b457492810c32def89c99338
   
   const onClickhiddenBtn = () => {
     setUpdatehiddenBtn(true)
@@ -37,16 +32,10 @@ function CommentCard( {data} : commentData) {
   return (
     <Wrap>
       <CommentListHeader>
-<<<<<<< HEAD
-        <UserEmail>
-          <p> {data.userEmail} </p>
-        </UserEmail>
-=======
         <UserInpo>
           <div> <p>{data.userEmail}</p><p>{TimeForToday(data.commentTime)}</p> </div>
           {/* <p><span>작성 날자 : </span></p> */}
         </UserInpo>
->>>>>>> c583def3023df4d9b457492810c32def89c99338
         {!UpdatehiddenBtn && EditableBtn && (
           <ChangeBtn>
             <span onClick={onClickhiddenBtn}>수정</span>

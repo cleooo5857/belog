@@ -1,119 +1,118 @@
 import LodingPage from "components/Loding/loding";
-import { queryKey} from "consts/queryKey";
+import { queryKey } from "consts/queryKey";
 import { media } from "libs/styles/media";
 import useMainpPostingListQuery from "queries/postingQuery";
 import React, { useEffect } from "react";
-import styled from "styled-components"
+import styled from "styled-components";
 import MainPageCard from "./MainCard";
-import { useInView } from 'react-intersection-observer';
-
+import { useInView } from "react-intersection-observer";
+import SkeletonMainPageCard from "components/Skeleton/SkeletonCard";
 
 export interface BoardData {
-   boardContents: string;
-   writeTime: string;
-   boardNum: number;
-   boardTitle: string;
-   hashTag?: string;
-   boardImages?: string[];
-   userEmail:string;
+  boardContents: string;
+  writeTime: string;
+  boardNum: number;
+  boardTitle: string;
+  hashTag?: string;
+  boardImages?: string[];
+  userEmail: string;
 }
 
 interface Board {
-   boardList: BoardData[];
+  boardList: BoardData[];
 }
 
 interface PageParams {
-   [index: number]: undefined;
+  [index: number]: undefined;
 }
 
 interface Page {
-   data: Board[];
+  data: Board[];
 }
 
 export interface getPostingData {
-   boardList: Board;
-   data: any;
-   pageParams: PageParams;
-   pages: Page[];
+  boardList: Board;
+  data: any;
+  pageParams: PageParams;
+  pages: Page[];
 }
-
 
 function MainPageList() {
-   
-   /*
+  /*
       react-query 무한스크롤
       data 10개 게시판 리스트 , fetchNextPage 무한스크롤 함수 , isFetching 비동기 함수가 처리되었는지 여부 
-   */ 
-   const { data, fetchNextPage, isFetching } = useMainpPostingListQuery();
-   const [ref, inView] = useInView();
-   
-   // 웹 브라우저 끝 지점 도달 시 무한 스크롤 함수 실행
-   useEffect(() => {
-      // 서버 요청시 취소됐을때
-      if (!inView || isFetching) return;
-      fetchNextPage();
-      
-    }, [inView]);
+   */
+  const { data, fetchNextPage, isFetching } = useMainpPostingListQuery();
+  const [ref, inView] = useInView();
+  console.log(isFetching);
 
-   
-   return(
-      <S.Wrapper>
-         <S.Innerwrap>
-            <S.Ul>
-               {data &&
-                  data.pages.map((page, index) => (
-                     <React.Fragment key={index}>
-                        {page.data.boardList.map((data : BoardData, index : number ) => (
-                           <MainPageCard data={data} key={index}/>
-                           ))}
-                     </React.Fragment>
-               ))}
+  // 웹 브라우저 끝 지점 도달 시 무한 스크롤 함수 실행
+  useEffect(() => {
+    // 서버 요청시 취소됐을때
+    if (!inView || isFetching) return;
+    fetchNextPage();
+  }, [inView]);
 
-            </S.Ul>
-         </S.Innerwrap>
-               <div ref={ref} />
-         {isFetching && <LodingPage />}
-      </S.Wrapper>
-
-   )
+  return (
+    <S.Wrapper>
+      <S.Innerwrap>
+        <S.Ul>
+          {data &&
+            data.pages.map((page, index) => (
+              <React.Fragment key={index}>
+                {page.data.boardList.map((data: BoardData, index: number) => (
+                  <MainPageCard data={data} key={index} />
+                ))}
+              </React.Fragment>
+            ))}
+        </S.Ul>
+        {isFetching ? (
+          <SkeletonMainPageCard />
+        ) : (
+          <div> 서버가 끊어졌습니다. 010-4589-7089</div>
+        )}
+      </S.Innerwrap>
+      <div ref={ref} />
+    </S.Wrapper>
+  );
 }
 
-export default MainPageList
+export default MainPageList;
 
 const Wrapper = styled.div`
-   background-color: #fff;
-   min-height: 100%;
-   width: 1728px;
-   margin-left: auto;
-   margin-right: auto;
+  background-color: #fff;
+  min-height: 100%;
+  width: 1728px;
+  margin-left: auto;
+  margin-right: auto;
 
-   ${media.desktopL} {
-      width: 1376px;
-   }
-   ${media.desktopM} {
-      width: 1024px;
-   }
-   ${media.tablet} {
-      width: calc(100% - 2rem);
-   }
+  ${media.desktopL} {
+    width: 1376px;
+  }
+  ${media.desktopM} {
+    width: 1024px;
+  }
+  ${media.tablet} {
+    width: calc(100% - 2rem);
+  }
 `;
 
 const Innerwrap = styled.div`
-   margin-top: 4rem;
-`
+  margin-top: 4rem;
+`;
 
 const Ul = styled.ul`
-   flex-wrap: wrap;
-   display: flex;
-   margin: -1rem;
-   
-   ${media.tablet} {
-      margin: 0;
-   }
+  flex-wrap: wrap;
+  display: flex;
+  margin: -1rem;
+
+  ${media.tablet} {
+    margin: 0;
+  }
 `;
 
 const S = {
-   Wrapper,
-   Innerwrap,
-   Ul,
+  Wrapper,
+  Innerwrap,
+  Ul,
 };
