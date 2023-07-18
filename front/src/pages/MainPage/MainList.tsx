@@ -1,5 +1,3 @@
-import LodingPage from "components/Loding/loding";
-import { queryKey } from "consts/queryKey";
 import { media } from "libs/styles/media";
 import useMainpPostingListQuery from "queries/postingQuery";
 import React, { useEffect } from "react";
@@ -44,7 +42,6 @@ function MainPageList() {
    */
   const { data, fetchNextPage, isFetching } = useMainpPostingListQuery();
   const [ref, inView] = useInView();
-  console.log(isFetching);
 
   // 웹 브라우저 끝 지점 도달 시 무한 스크롤 함수 실행
   useEffect(() => {
@@ -66,11 +63,7 @@ function MainPageList() {
               </React.Fragment>
             ))}
         </S.Ul>
-        {isFetching ? (
-          <SkeletonMainPageCard />
-        ) : (
-          <div> 서버가 끊어졌습니다. 010-4589-7089</div>
-        )}
+        {isFetching && <SkeletonMainPageCard />}
       </S.Innerwrap>
       <div ref={ref} />
     </S.Wrapper>

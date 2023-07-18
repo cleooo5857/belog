@@ -7,6 +7,7 @@ type PostsData = {
   data: string;
 };
 
+// const url = process.env.REACT_APP_BASE_URL;
 const url = process.env.REACT_APP_BASE_URL;
 const path = `${url}v1/board/`;
 
