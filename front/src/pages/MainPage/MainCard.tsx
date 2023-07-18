@@ -16,12 +16,6 @@ import SkeletonMainPageCard from "components/Skeleton/SkeletonCard";
  * @param {string} hashTag - 태그리스트
  */
 function MainPageCard({ data }: { data: BoardData }) {
-  useEffect(() => {
-    const delay = setTimeout(() => {}, 1000);
-
-    return () => clearTimeout(delay);
-  }, []);
-
   //HTML 태그 text 만 노출시키기 위한  랜더링 해주기 위한 함수
   const createMarkup = () => {
     const parser = new DOMParser();
