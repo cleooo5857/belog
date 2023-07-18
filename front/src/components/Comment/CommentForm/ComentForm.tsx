@@ -26,6 +26,7 @@ function ComentForm({ boardNum }: { boardNum: number }) {
       onSuccess: (res) => {
         queryClient.invalidateQueries([commentKey.GET_COMMENT_LIST]);
         reset("");
+        console.log(res);
       },
     }
   );
