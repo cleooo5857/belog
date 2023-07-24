@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { css, keyframes } from "styled-components";
+import { media } from "libs/styles/media";
 
 function SkeletonMainPageCard() {
   return (
@@ -55,6 +56,14 @@ const Container = styled.div`
   padding: 0.625rem 1rem;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
     rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  ${media.tablet} {
+    width: calc(50% - 2rem);
+  }
+
+  ${media.mobildL} {
+    width: 100%;
+    margin: 2rem 0px;
+  }
 `;
 
 const Thumbnail = styled.div`

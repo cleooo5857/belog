@@ -3,8 +3,6 @@ import { media } from "libs/styles/media";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { BoardData } from "./MainList";
-import { useEffect } from "react";
-import SkeletonMainPageCard from "components/Skeleton/SkeletonCard";
 
 /**
  * @param {number} boardNum - 게시판 아이디.
