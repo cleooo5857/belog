@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: [ "front-end/dev" ]
 
-
 jobs:
   build:
     runs-on: ubuntu-latest
